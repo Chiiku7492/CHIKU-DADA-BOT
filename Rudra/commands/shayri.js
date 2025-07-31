@@ -20,7 +20,7 @@ module.exports.run = async function ({ api, event }) {
     text = text.replace(/writer\s*:\s*.*$/i, "").trim();
 
     // Style the message
-    const styled = `✨💔 𝙎𝙝𝙖𝙮𝙖𝙧𝙞 💔✨\n\n❝ ${text} ❞\n\n🌙 /𝙛𝙚𝙚𝙡 𝙩𝙝𝙚 𝙬𝙤𝙧𝙙𝙨.../`;
+    const styled = `✨💔 𝗔𝗬𝗨𝗦𝗛 𝗦𝗛𝗔𝗬𝗥𝗜 💔✨\n\n❝ ${text} ❞\n\n🌙 /𝙛𝙚𝙚𝙡 𝙩𝙝𝙚 𝙬𝙤𝙧𝙙𝙨.../`;
 
     return api.sendMessage(styled, event.threadID, event.messageID);
   } catch (e) {
