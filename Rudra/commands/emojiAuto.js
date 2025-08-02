@@ -1,34 +1,35 @@
 module.exports.config = {
-  name: "emoji",
+  name: "emojiAuto",
   version: "1.0.0",
-  hasPermission: 0,
+  hasPermssion: 0,
   credits: "Piyush",
-  description: "Reply with cute messages on emoji",
-  commandCategory: "fun",
-  usages: "[emoji]",
+  description: "Auto reply to emojis",
+  commandCategory: "auto",
+  usages: "Auto emoji reply",
   cooldowns: 1
 };
 
-module.exports.run = async function({ api, event }) {
-  const message = event.body;
-
-  // Emoji replies
+module.exports.handleEvent = async function ({ api, event }) {
   const emojiReplies = {
-    "❤️": "Aww, love you too ❤️😘",
-    "🥺": "Kya hua jaanu? 🥺💔",
-    "😂": "Hahaha! Tumhari hasi sabse pyaari hai 😄",
-    "😡": "Arre baby gussa mat ho 😢, mujhe sorry bolo 🙏",
-    "😍": "Bas kar pagli, rulaayegi kya? 😍💘",
-    "😢": "Kya hua jaan, kisne rulaya? 😢💔",
-    "😘": "Muahhh 😘😘😘",
-    "😎": "Style dekho bawaal 🔥😎",
-    "🤬": "Arre arre, itna gussa kyu 🤭",
-    "🤗": "A tight hug for you 🤗💖"
+    "😂": "हाहा! मजेदार था 😄",
+    "❤️": "लव यू टू 💖",
+    "🥺": "ओह नो... क्या हुआ? 🥺💔",
+    "👍": "शाबाश! 👍",
+    "🔥": "बिलकुल आग है! 🔥",
+    "😡": "किस पर गुस्सा है? 😠",
+    "🙏": "धन्यवाद 🙏"
   };
 
-  if (emojiReplies[message]) {
-    return api.sendMessage(emojiReplies[message], event.threadID, event.messageID);
-  } else {
-    return api.sendMessage("Emoji toh bheja, lekin uska jawab mere paas नहीं है! 😅", event.threadID, event.messageID);
+  const message = event.body;
+  if (!message) return;
+
+  for (const emoji in emojiReplies) {
+    if (message.includes(emoji)) {
+      return api.sendMessage(emojiReplies[emoji], event.threadID, event.messageID);
+    }
   }
+};
+
+module.exports.run = async function () {
+  // Command manually run नहीं होती, ये auto reply है
 };
