@@ -10,9 +10,9 @@ module.exports.config = {
 };
 
 const shayariList = [
-  "💔 ❝ तेरे बिना ज़िन्दगी अधूरी सी लगती है ❞ 💔",
-  "🌙 ❝ मोहब्बत की इन्तहा चाहिए... मुझे ❞ 🥀",
-  "🥹 ❝ जो दिल से उतर जाए, वो लौटकर नहीं आता ❞",
+  "💔 ❝ Lakho ki hasi tumhare naam Kar denge har Khushi tumpe kurban Kar denge aaye agar hamare pyar me koi bhi kami to kahe Dena is jindagi ko aakhri Salam keh denge ❞ 💔",
+  "🌙 ❝ Unka Waada Hai Ke Wo Laut Aayenge Isi Ummeed Par Ham Jeeye JayengeYeh  Intezaar Bhi Unhi Ki Tarah Pyara HaiKar Rahe The Kar Rahe Hein Aur Kiye Jayenge ❞🥀",
+  "🥹 ❝ Aap se door ho kar hum jayenge kaha Aap jaisa dost hum payenge kaha Dil ko kaise bhi sambhal lenge Par aankho ke aansu hum chupayege kaha ❞ ❞",
   "🦋 ❝ इश्क़ वो नहीं जो सूरत से हो... ❞",
   "🔥 ❝ तू पास नहीं फिर भी तू साथ है... ❞"
 ];
@@ -29,7 +29,7 @@ module.exports.onLoad = async ({ api }) => {
   intervalID = setInterval(() => {
     const shayari = shayariList[Math.floor(Math.random() * shayariList.length)];
     threadIDs.forEach(threadID => {
-      api.sendMessage(`🌸 Auto Shayari:\n\n${shayari}`, threadID);
+      api.sendMessage(`🖤𝗔𝗬𝗨𝗦𝗛 𝗧𝗛𝗔𝗞𝗨𝗥 𝗔𝗨𝗧𝗢𝗧𝗜𝗠𝗘𝗥 𝗦𝗛𝗔𝗬𝗥𝗜 🖤🥰:\n\n${shayari}`, threadID);
     });
   }, intervalTime);
 };
