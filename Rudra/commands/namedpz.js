@@ -1,44 +1,35 @@
-const axios = require("axios");
-const fs = require("fs-extra");
+const axios = require('axios');
+const fs = require('fs-extra');
 
 module.exports.config = {
   name: "namedpz",
-  version: "1.0",
+  version: "1.0.0",
   hasPermssion: 0,
-  credits: "Piyush", 
-  description: "नाम से DPZ फोटो बनाएं",
-  commandCategory: "image",
-  usages: "[तुम्हारा नाम]",
-  cooldowns: 2,
+  credits: "Piyush Kumar",
+  description: "Stylish Name से DPZ बनाएं",
+  commandCategory: "img",
+  usages: "[YourName]",
+  cooldowns: 3
 };
 
 module.exports.run = async ({ api, event, args }) => {
   const name = args.join(" ");
-  if (!name) return api.sendMessage("❌ कृपया एक नाम डालें जैसे: +namedpz Ayush", event.threadID, event.messageID);
+  if (!name) return api.sendMessage("✍️ कृपया अपना नाम दें!\nउदाहरण: namedpz Ayush", event.threadID, event.messageID);
 
   try {
-    api.sendMessage("📸 कृपया इंतजार करें, आपकी DPZ बन रही है...", event.threadID, event.messageID);
+    const url = `https://api.samir324.repl.co/dpz?name=${encodeURIComponent(name)}`;
+    const response = await axios.get(url, { responseType: 'arraybuffer' });
 
-    const photooxyURL = `https://photooxy.com/logo-and-text-effects/shadow-text-effect-in-the-sky-394.html`;
+    const path = __dirname + `/cache/nameDPZ.jpg`;
+    fs.writeFileSync(path, Buffer.from(response.data, "utf-8"));
 
-    const { data } = await axios({
-      method: "POST",
-      url: "https://api.zahwazein.xyz/photooxy1",
-      params: {
-        text: name,
-        link: photooxyURL
-      }
-    });
-
-    const imgURL = data.result;
-    const imgPath = __dirname + `/cache/dpz_${event.senderID}.jpg`;
-    const imgRes = await axios.get(imgURL, { responseType: "arraybuffer" });
-    fs.writeFileSync(imgPath, Buffer.from(imgRes.data, "utf-8"));
-
-    api.sendMessage({ body: `✨ Here's your DPZ, ${name} 💖`, attachment: fs.createReadStream(imgPath) }, event.threadID, () => fs.unlinkSync(imgPath));
+    api.sendMessage({
+      body: `🖼️ Here's your DPZ for: ${name}`,
+      attachment: fs.createReadStream(path)
+    }, event.threadID, () => fs.unlinkSync(path), event.messageID);
 
   } catch (err) {
-    console.log(err);
-    return api.sendMessage("⚠️ फोटो बनाते समय कुछ गड़बड़ हो गई। कृपया बाद में कोशिश करें।", event.threadID, event.messageID);
+    console.error(err);
+    return api.sendMessage("⚠️ कुछ गड़बड़ हो गई! शायद API काम नहीं कर रही।", event.threadID, event.messageID);
   }
 };
